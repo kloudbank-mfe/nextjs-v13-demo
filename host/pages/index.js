@@ -8,63 +8,40 @@ import {
 import { Layout, Menu } from 'antd';
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
+import useSWR from 'swr';
 const { Header, Sider, Content } = Layout;
+import AppLayout from './layout';
 
 const Test = dynamic(() => import('remote/Test'), { ssr: false });
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
 export default function Home() {
-  const [collapsed, setCollapsed] = useState(false);
+  const { data, error } = useSWR('/api/hello', fetcher);
+  //Handle the error state
+  if (error) return <div>Failed to load</div>;
+  //Handle the loading state
+  if (!data) return <div>Loading...</div>;
+
   return (
-      <Layout className="layout">
-        <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="logo" />
-          <Menu
-              theme="dark"
-              mode="inline"
-              defaultSelectedKeys={['1']}
-              items={[
-                {
-                  key: '1',
-                  icon: <UserOutlined />,
-                  label: 'nav 1',
-                },
-                {
-                  key: '2',
-                  icon: <VideoCameraOutlined />,
-                  label: 'nav 2',
-                },
-                {
-                  key: '3',
-                  icon: <UploadOutlined />,
-                  label: 'nav 3',
-                },
-              ]}
-          />
-        </Sider>
-        <Layout className="site-layout">
-          <Header
-              className="site-layout-background"
-              style={{
-                padding: 0,
-              }}
-          >
-            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-              className: 'trigger',
-              onClick: () => setCollapsed(!collapsed),
-            })}
-          </Header>
-          <Content
-              className="site-layout-background"
-              style={{
-                margin: '24px 16px',
-                padding: 24,
-              }}
-          >
-            Content
-            <br/>
-            <Test />
-          </Content>
-        </Layout>
-      </Layout>
+    <>
+      <h2>Content from hello api</h2> {
+      Object.entries(data).map(([key, value]) => {
+        return (
+          <div>
+            <h3>{key}</h3>
+            <p>{value}</p>
+          </div>
+        );
+      })}
+      <br/>
+      <Test />
+    </>
+  )
+}
+
+Home.getLayout = function getLayout(page) {
+  return (
+    <AppLayout>{page}</AppLayout>
   )
 }
