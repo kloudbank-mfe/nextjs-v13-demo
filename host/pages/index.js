@@ -16,7 +16,7 @@ export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
   return (
       <Layout className="layout">
-        {/* <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="logo" />
           <Menu
               theme="dark"
@@ -40,9 +40,9 @@ export default function Home() {
                 },
               ]}
           />
-        </Sider> */}
+        </Sider>
         <Layout className="site-layout">
-          {/* <Header
+          <Header
               className="site-layout-background"
               style={{
                 padding: 0,
@@ -52,7 +52,7 @@ export default function Home() {
               className: 'trigger',
               onClick: () => setCollapsed(!collapsed),
             })}
-          </Header> */}
+          </Header>
           <Content
               className="site-layout-background"
               style={{
