@@ -1,0 +1,17 @@
+{
+  "name": "nextjs-v13-demo",
+  "private": true,
+  "workspaces": [
+    "./host",
+    "./remote"
+  ],
+  "version": "0.1.0",
+  "scripts": {
+    "start": "concurrently \"cd host; yarn dev\" \"cd remote; yarn dev\"",
+    "build": "concurrently \"cd host; yarn build\" \"cd remote; yarn build\"",
+    "serve": "concurrently \"cd host; yarn start\" \"cd remote; yarn start\""
+  },
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}

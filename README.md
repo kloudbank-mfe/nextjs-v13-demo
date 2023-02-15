@@ -13,6 +13,11 @@ yarn create next-app ...
 - remote: port 3001
 
 ```sh
-yarn
-yarn start
+# 1. install
+$ yarn 
+or 
+$ yarn install --force
+
+# 2. start
+$ yarn start
 ```
