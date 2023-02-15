@@ -1,23 +1,7 @@
 import { Radio, Space, Table, Tag } from 'antd';
 import { useState } from 'react';
-const topOptions = [
-  {
-    label: 'topLeft',
-    value: 'topLeft',
-  },
-  {
-    label: 'topCenter',
-    value: 'topCenter',
-  },
-  {
-    label: 'topRight',
-    value: 'topRight',
-  },
-  {
-    label: 'none',
-    value: 'none',
-  },
-];
+import CustomDrawer from '#/components/CustomDrawer';
+
 const bottomOptions = [
   {
     label: 'bottomLeft',
@@ -36,37 +20,69 @@ const bottomOptions = [
     value: 'none',
   },
 ];
+
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-  },
-  {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
-  },
-  {
-    title: 'Tags',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (tags) => (
+    title: 'ID',
+    dataIndex: '_id',
+    key: '_id',
+    render: (_, record) => (
       <span>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
+        <CustomDrawer
+          title={record._id}
+          detail={record}
+        >
+        </CustomDrawer>
+      </span>
+    ),
+  },
+  {
+    title: 'Kind',
+    key: 'meta',
+    dataIndex: 'meta',
+    render: (meta) => (
+      <span>{meta.kind}</span>
+    ),
+  },
+  {
+    title: 'Name',
+    key: 'meta',
+    dataIndex: 'meta',
+    render: (meta) => (
+      <span>{meta.name}</span>
+    ),
+  },
+  {
+    title: 'Namespace',
+    key: 'meta',
+    dataIndex: 'meta',
+    render: (meta) => (
+      <span>{meta.namespace}</span>
+    ),
+  },
+  {
+    title: 'Type',
+    key: 'status',
+    dataIndex: 'status',
+    render: (status) => (
+      <span>{status.type}</span>
+    ),
+  },
+  {
+    title: 'Level',
+    key: 'status',
+    dataIndex: 'status',
+    render: (status) => (
+      <span>
+        {[status].map((status) => {
+          let level = status.level;
+          let color = level === 'warn' ? 'yellow' : 'green';
+          if (level === 'critical') {
             color = 'volcano';
           }
           return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
+            <Tag color={color} key={level}>
+              {level.toUpperCase()}
             </Tag>
           );
         })}
@@ -74,57 +90,35 @@ const columns = [
     ),
   },
   {
-    title: 'Action',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
+    title: 'Timestamp',
+    dataIndex: 'timestamp',
+    key: 'timestamp',
   },
 ];
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
-const CustomTable = () => {
-  const [top, setTop] = useState('topLeft');
-  const [bottom, setBottom] = useState('bottomRight');
+
+// {
+//   "_id": "63c76aefabfdc18f7c6cb590",
+//   "meta": {
+//     "kind": "Pod",
+//     "name": "hcp-bpcp-backend-mvp-77476b69dd-trndf",
+//     "namespace": "hcp-bpcp-backend",
+//     "cluster": "bpcd01"
+//   },
+//   "status": {
+//     "type": "create",
+//     "level": "info"
+//   },
+//   "summary": "Pod *hcp-bpcp-backend/hcp-bpcp-backend-mvp-77476b69dd-trndf* has been created in *bpcd01* cluster\n",
+//   "timestamp": "2023-01-18T03:43:43Z",
+//   "createdAt": "2023-01-18T03:43:43.536Z",
+//   "updatedAt": "2023-01-18T03:43:43.536Z"
+// },
+
+const CustomTable = ({ dataList } = props) => {
+  const [bottom, setBottom] = useState('bottomCenter');
   return (
     <div>
-      <div>
-        <Radio.Group
-          style={{
-            marginBottom: 10,
-          }}
-          options={topOptions}
-          value={top}
-          onChange={(e) => {
-            setTop(e.target.value);
-          }}
-        />
-      </div>
-      <Radio.Group
+      {/* <Radio.Group
         style={{
           marginBottom: 10,
         }}
@@ -133,13 +127,13 @@ const CustomTable = () => {
         onChange={(e) => {
           setBottom(e.target.value);
         }}
-      />
+      /> */}
       <Table
         columns={columns}
         pagination={{
-          position: [top, bottom],
+          position: [bottom],
         }}
-        dataSource={data}
+        dataSource={dataList}
       />
     </div>
   );
