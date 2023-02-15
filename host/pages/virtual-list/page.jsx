@@ -1,4 +1,4 @@
-import CustomTable from '#/components/TablePagination';
+import CustomTable from '#/components/VirtualList';
 import useSWR from 'swr';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());

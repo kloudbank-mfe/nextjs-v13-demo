@@ -1,6 +1,6 @@
 import { Radio, Space, Table, Tag } from 'antd';
 import { useState } from 'react';
-import CustomDrawer from '#/components/CustomDrawer';
+import CustomDrawer from '#/components/Drawer';
 
 const bottomOptions = [
   {
@@ -38,7 +38,7 @@ const columns = [
   },
   {
     title: 'Kind',
-    key: 'meta',
+    key: '_id',
     dataIndex: 'meta',
     render: (meta) => (
       <span>{meta.kind}</span>
@@ -46,7 +46,7 @@ const columns = [
   },
   {
     title: 'Name',
-    key: 'meta',
+    key: '_id',
     dataIndex: 'meta',
     render: (meta) => (
       <span>{meta.name}</span>
@@ -54,7 +54,7 @@ const columns = [
   },
   {
     title: 'Namespace',
-    key: 'meta',
+    key: '_id',
     dataIndex: 'meta',
     render: (meta) => (
       <span>{meta.namespace}</span>
@@ -62,7 +62,7 @@ const columns = [
   },
   {
     title: 'Type',
-    key: 'status',
+    key: '_id',
     dataIndex: 'status',
     render: (status) => (
       <span>{status.type}</span>
@@ -70,7 +70,7 @@ const columns = [
   },
   {
     title: 'Level',
-    key: 'status',
+    key: '_id',
     dataIndex: 'status',
     render: (status) => (
       <span>
@@ -91,7 +91,7 @@ const columns = [
   },
   {
     title: 'Timestamp',
-    dataIndex: 'timestamp',
+    dataIndex: '_id',
     key: 'timestamp',
   },
 ];
