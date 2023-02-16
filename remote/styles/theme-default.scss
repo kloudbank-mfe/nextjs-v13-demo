@@ -1,0 +1,23 @@
+.default {
+  & .ant-layout-header{
+    background-color: #0078d4 !important;
+  }
+  & .ant-layout-content {
+    background: #fff;
+  }
+  & .ant-layout-sider {
+    background-color: #fff !important;
+  }
+  & .ant-layout-sider:after {
+    box-shadow: inset -6px 0 10px -6px #d6d6d6;
+  }
+  & .ant-layout-sider-trigger {
+    background: #0078d4;
+  }
+  & .ant-menu-light{
+    background-color: #fff !important;
+  }
+
+  & .demo-header-title{ color: #fff !important;}
+  & .demo-header-gnb-item{ color: #fff !important;}
+}

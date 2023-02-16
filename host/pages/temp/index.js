@@ -1,16 +1,29 @@
 import { useState, useEffect } from "react";
-import LayoutContainer from "../components/container/LayoutContainer";
+import dynamic from "next/dynamic";
 import { ConfigProvider, theme, Typography } from "antd";
 const { Title, Paragraph } = Typography;
 const { defaultAlgorithm, darkAlgorithm } = theme;
+import { LoadingOutlined } from "@ant-design/icons";
+import { Space, Spin } from "antd";
+
+// Remote Layout dynamic 로딩
+const LayoutContainer = dynamic(() => import("remote/Layout"), {
+  ssr: false,
+  loading: () => (
+    <Space size="large" className="demo-spin-fullscreen">
+      <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+      <h4>Remote Layout Loading...</h4>
+    </Space>
+  ),
+});
 
 export default function Home() {
   const [darkTheme, setDarkTheme] = useState(false, () => {});
 
   // 테마 상태 변경 callback (로컬 스토리지)
   function setDarkThemeCallback() {
-    localStorage.setItem("darkTheme", !darkTheme);
     setDarkTheme(!darkTheme);
+    localStorage.setItem("darkTheme", !darkTheme);
   }
 
   // 기존 테마 상태 불러오기 (로컬 스토리지)
@@ -30,8 +43,13 @@ export default function Home() {
         }}
       >
         <Typography>
-          <Title>소개 </Title>
-          <Paragraph style={{}}>{process.env.NEXT_PUBLIC_CONTENTS}</Paragraph>
+          <Title>소개</Title>
+          <Paragraph>
+            In the process of internal desktop applications development, many
+            different design specs and implementations would be involved, which
+            might cause designers and developers difficulties and duplication
+            and reduce the efficiency of development.
+          </Paragraph>
         </Typography>
       </ConfigProvider>
     </LayoutContainer>

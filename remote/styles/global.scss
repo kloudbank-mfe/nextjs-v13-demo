@@ -1,0 +1,104 @@
+
+ /* base /////////////////////////////////// */
+
+body{
+  margin: 0;
+  font-family: "Segoe UI, -apple-system ",
+}
+
+h1 {
+  margin-block-start: .8em;
+  margin-block-end: .8em;
+}
+
+ /* ant design custom /////////////////////////////////// */
+
+.ant-layout-header{
+  height: 41px !important;
+  line-height: 41px !important;
+  padding-inline: 20px !important;
+  background-color: #ffffff !important;
+}
+.ant-layout-content {
+  padding: 1rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.ant-layout-sider {
+  padding-top: 10px;
+}  
+
+.ant-layout-sider:after {
+  content: "\00a0";
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+}
+.ant-layout-sider-trigger {
+  height: 40px !important;
+  line-height: 40px !important;
+}
+
+.ant-layout-sider-collapsed {
+  flex: 0 0 60px !important;
+  max-width: 60px !important;
+  min-width: 60px !important;
+  width: 60px !important;
+  
+  & .ant-layout-sider-trigger {
+    width: 60px !important;
+  }
+}
+.ant-menu-vertical{
+  border-inline-end: none !important;
+}
+
+.ant-menu-item, .ant-menu-submenu-title{
+  margin: 0 !important;
+  width: 100% !important;
+  font-weight: 600;
+  font-size: 13px;
+  height: 30px !important;
+  padding-left: 20px !important;
+}
+
+.ant-menu-sub .ant-menu-item{
+  padding-left: 55px !important;
+}
+
+.ant-menu-item-icon{
+  font-size: 20px !important;
+  color: #0078d4 !important;
+  width: 20px !important;
+}
+.ant-menu-root.ant-menu-inline{
+  border:none !important
+}
+.ant-menu-item-selected{
+  color: inherit !important;
+}
+
+ /* demo /////////////////////////////////// */
+
+.demo-layout{min-height:100vh}
+.demo-header{height: 36px }
+.demo-header-title{ margin: 0; font-weight: 600}
+.demo-header-gnb-item{          
+  border: none;
+  line-height: 20px;
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 20px;
+  margin-right: 10px; 
+}
+.demo-account-modal{top: 41px; float: right}
+
+.demo-spin-fullscreen{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
