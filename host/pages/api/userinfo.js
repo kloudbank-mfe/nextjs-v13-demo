@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   //Find the absolute path of the json directory
   const jsonDirectory = path.join(process.cwd(), 'json');
   //Read the json data file data.json
-  const fileContents = await fs.readFile(jsonDirectory + '/botkube.json', 'utf8');
+  const fileContents = await fs.readFile(jsonDirectory + '/userinfo.json', 'utf8');
   // Add key property
   const updatedList = JSON.parse(fileContents).map((item, idx) => ({
     ...item,

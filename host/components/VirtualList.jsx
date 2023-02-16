@@ -1,9 +1,8 @@
-import { Table, theme, Tag } from 'antd';
+import { Table, theme } from 'antd';
 import classNames from 'classnames';
 import ResizeObserver from 'rc-resize-observer';
 import { useEffect, useRef, useState } from 'react';
 import { VariableSizeGrid as Grid } from 'react-window';
-import CustomDrawer from '#/components/Drawer';
 
 const VirtualTable = (props) => {
   const { columns, scroll } = props;
@@ -90,67 +89,40 @@ const VirtualTable = (props) => {
     );
   };
   return (
-    <ResizeObserver
-      onResize={({ width }) => {
-        setTableWidth(width);
-      }}
-    >
-      <Table
-        {...props}
-        className="virtual-table"
-        columns={mergedColumns}
-        pagination={false}
-        components={{
-          body: renderVirtualList,
+    <>
+      <ResizeObserver
+        onResize={({ width }) => {
+          setTableWidth(width);
         }}
-      />
-    </ResizeObserver>
+      >
+        <Table
+          {...props}
+          className="virtual-table"
+          columns={mergedColumns}
+          pagination={false}
+          components={{
+            body: renderVirtualList,
+          }}
+        />
+      </ResizeObserver>
+    </>
   );
 };
 
-const columns = [
-  {
-    title: 'ID',
-    dataIndex: '_id',
-    key: '_id',
-    width: 300,
-  },
-  {
-    title: 'Summary',
-    dataIndex: 'summary',
-    key: 'summary',
-    width: 800,
-  },
-  {
-    title: 'Timestamp',
-    dataIndex: 'timestamp',
-    key: 'timestamp',
-    width: 300,
-  },
-  // {
-  //   title: 'Created',
-  //   dataIndex: 'createdAt',
-  //   key: 'createdAt',
-  //   width: 300,
-  // },
-  // {
-  //   title: 'Updated',
-  //   dataIndex: 'updatedAt',
-  //   key: 'updatedAt',
-  //   width: 300,
-  // },
-];
+const CustomTable = ({ dataList, columns } = props) => {
 
-
-const CustomTable = ({ dataList } = props) => (
-  <VirtualTable
-    columns={columns}
-    dataSource={dataList}
-    scroll={{
-      y: 500,
-      x: '100vw',
-    }}
-  />
-);
+  return (
+    <>
+      <VirtualTable
+        columns={columns}
+        dataSource={dataList}
+        scroll={{
+          y: 500,
+          x: '100vw',
+        }}
+      />
+    </>
+  );
+}
 
 export default CustomTable;
