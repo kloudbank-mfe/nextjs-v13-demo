@@ -1,15 +1,5 @@
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
 import useSWR from 'swr';
-const { Header, Sider, Content } = Layout;
 import AppLayout from './layout';
 
 const Test = dynamic(() => import('remote/Test'), { ssr: false });
@@ -26,9 +16,9 @@ export default function Home() {
   return (
     <>
       <h2>Content from hello api</h2> {
-      Object.entries(data).map(([key, value]) => {
+      Object.entries(data).map(([key, value], idx) => {
         return (
-          <div>
+          <div key={`${key}=${idx}`}>
             <h3>{key}</h3>
             <p>{value}</p>
           </div>

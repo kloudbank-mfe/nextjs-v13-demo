@@ -1,4 +1,4 @@
-import { Button, Drawer, Space } from 'antd';
+import { Drawer, Space } from 'antd';
 import { useState } from 'react';
 
 const CustomDrawer = ({
@@ -29,14 +29,14 @@ const CustomDrawer = ({
         open={open}
       >
       {
-        Object.entries(detail).map(([key, value]) => {
+        Object.entries(detail).map(([key, value],idx) => {
           if (key != '_id') {
             if (typeof value != 'object') {
               return (
-                <>
+                <span key={`${key}-${idx}`}>
                   <h2>{key}</h2>
                   <p>{value}</p>
-                </>
+                </span>
               );
             } else {
               return (
@@ -44,10 +44,10 @@ const CustomDrawer = ({
                   <h2>{key}</h2>
                   {Object.entries(value).map(([key, value]) => {
                     return (
-                      <>
+                      <span key={`${key}-${idx}`}>
                         <h3>{key}</h3>
                         <p>{value}</p>
-                      </>
+                      </span>
                     )
                   })}
                 </>
@@ -60,23 +60,5 @@ const CustomDrawer = ({
     </>
   );
 };
-
-// {
-//   "_id": "63c76aefabfdc18f7c6cb590",
-//   "meta": {
-//     "kind": "Pod",
-//     "name": "hcp-bpcp-backend-mvp-77476b69dd-trndf",
-//     "namespace": "hcp-bpcp-backend",
-//     "cluster": "bpcd01"
-//   },
-//   "status": {
-//     "type": "create",
-//     "level": "info"
-//   },
-//   "summary": "Pod *hcp-bpcp-backend/hcp-bpcp-backend-mvp-77476b69dd-trndf* has been created in *bpcd01* cluster\n",
-//   "timestamp": "2023-01-18T03:43:43Z",
-//   "createdAt": "2023-01-18T03:43:43.536Z",
-//   "updatedAt": "2023-01-18T03:43:43.536Z"
-// },
 
 export default CustomDrawer;
