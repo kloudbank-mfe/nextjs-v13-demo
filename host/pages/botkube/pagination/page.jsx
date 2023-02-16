@@ -1,9 +1,8 @@
 import { Tag } from 'antd';
 import useSWR from 'swr';
+import { useState, useEffect } from 'react';
 import CustomTable from '#/components/TablePagination';
 import CustomDrawer from '#/components/Drawer';
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const columns = [
   {
@@ -80,15 +79,33 @@ const columns = [
   },
 ];
 
-export default function Page() {
+const fetcher = (url) => fetch(url).then((res) => res.json());
+const useBotkubeInfo = () => {
   const { data, error } = useSWR('/api/botkube', fetcher);
+
+  return {
+    data,
+    error,
+  };
+};
+
+export default function Page() {
+  const { data, error } = useBotkubeInfo();
+  const [dataList, setDataList] = useState([]);
+
+  useEffect(() => {
+    if (data) {
+      setDataList(data);
+    }
+  }, [data]);
+
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
   return (
     <div>
       <CustomTable
-        dataList={JSON.parse(data)}
+        dataList={dataList}
         columns={columns}
       >
       </CustomTable>

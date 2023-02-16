@@ -1,4 +1,4 @@
-import { Table, theme, Input, Icon } from 'antd';
+import { Table, theme } from 'antd';
 import classNames from 'classnames';
 import ResizeObserver from 'rc-resize-observer';
 import { useEffect, useRef, useState } from 'react';
@@ -109,42 +109,18 @@ const VirtualTable = (props) => {
   );
 };
 
-const { Search } = Input;
-
 const CustomTable = ({ dataList, columns } = props) => {
-
-  const [filterInput, setFilterInput] = useState('')
-  const filterData = () => {
-    if(filterInput === '') return dataList
-
-    if(filterInput) {
-      return dataList.filter(({ summary }) => summary.includes(filterInput))
-    }
-  }
 
   return (
     <>
-      <div>
-        <Search
-          size="large"
-          placeholder="Enter the keyword"
-          allowClear
-          enterButton="Search"
-          onSearch={setFilterInput}
-        />
-      </div>
-      <br />
-      <div>
-        <VirtualTable
-          columns={columns}
-          // dataSource={dataList}
-          dataSource={filterData()}
-          scroll={{
-            y: 500,
-            x: '100vw',
-          }}
-        />
-      </div>
+      <VirtualTable
+        columns={columns}
+        dataSource={dataList}
+        scroll={{
+          y: 500,
+          x: '100vw',
+        }}
+      />
     </>
   );
 }
