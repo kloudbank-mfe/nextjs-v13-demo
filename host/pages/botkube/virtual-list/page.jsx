@@ -62,7 +62,7 @@ export default function Page() {
     <div>
       <Search
         size="large"
-        placeholder="Enter the keyword"
+        placeholder="Enter the keyword (search only summary)"
         allowClear
         enterButton="Search"
         onSearch={setFilterInput}
