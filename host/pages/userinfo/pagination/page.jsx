@@ -2,7 +2,7 @@ import { Tag, Modal } from 'antd';
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import useSWR from 'swr';
 import CustomTable from '#/components/TablePagination';
-import CustomDrawer from '#/components/Drawer';
+import CustomDescriptions from '#/components/DrawerDescriptions';
 import CustomModal from '#/components/ModalEdit';
 import { useState, useEffect } from 'react';
 
@@ -34,16 +34,14 @@ export default function Page() {
   const columns = [
     {
       title: 'Personal',
-      // dataIndex: 'personal',
       key: 'key',
       render: (_, record) => (
         <span>
-          <CustomDrawer
+          <CustomDescriptions 
             title={record.personal}
             detail={record}
             key={record.key}
-          >
-          </CustomDrawer>
+          />
         </span>
       ),
     },
