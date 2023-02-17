@@ -1,3 +1,4 @@
+import { Typography } from 'antd';
 import useSWR from 'swr';
 import AppLayout from './layout';
 import RemoteAppLayout from './remoteLayout';
@@ -14,20 +15,22 @@ export default function Home() {
 
   return (
     <>
-      <h2>Content from hello api</h2> {
-      Object.entries(data).map(([key, value], idx) => {
-        return (
-          <div key={`${key}=${idx}`}>
-            <h3>{key}</h3>
-            <p>{value}</p>
-          </div>
-        );
-      })}
-      <br/>
+      <Typography>
+        <h2>Content from hello api</h2> {
+          Object.entries(data).map(([key, value], idx) => {
+            return (
+              <div key={`${key}=${idx}`}>
+                <h3>{key}</h3>
+                <p>{value}</p>
+              </div>
+            );
+          })}
+        <br />
+      </Typography>
     </>
   )
 }
-// 
+
 Home.getLayout = function getLayout(page) {
   return (
     <>

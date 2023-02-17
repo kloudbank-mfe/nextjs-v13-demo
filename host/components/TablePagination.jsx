@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 
-const CustomTable = ({ dataList, columns } = props) => {
+const CustomTable = ({ dataList, columns, onChange } = props) => {
   return (
     <div>
       <Table
@@ -9,6 +9,7 @@ const CustomTable = ({ dataList, columns } = props) => {
           position: ['bottomCenter'],
         }}
         dataSource={dataList}
+        onChange={onChange}
       />
     </div>
   );

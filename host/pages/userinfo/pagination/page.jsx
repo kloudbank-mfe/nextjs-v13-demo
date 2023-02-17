@@ -1,4 +1,4 @@
-import { Tag, Modal, Input, Space, DatePicker } from 'antd';
+import { Tag, Modal, Input, Space, DatePicker, Select } from 'antd';
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import useSWR from 'swr';
 import CustomTable from '#/components/TablePagination';
@@ -19,6 +19,8 @@ const useUserInfo = () => {
   };
 };
 
+const defaultTagList = ['True', 'False'];
+
 export default function Page() {
   const { data, error } = useUserInfo();
   const [dataList, setDataList] = useState([]);
@@ -26,6 +28,8 @@ export default function Page() {
   const [edit, setEdit] = useState(null);
   const [filterInput, setFilterInput] = useState('');
   const [dateRange, setDateRange] = useState([]);
+  const [tagList, setTagList] = useState(defaultTagList);
+  const [sortedInfo, setSortedInfo] = useState({});
 
   useEffect(() => {
     if (data) {
@@ -39,41 +43,44 @@ export default function Page() {
   const columns = [
     {
       title: 'Personal',
-      key: 'key',
+      dataIndex: 'personal',
+      key: 'personal',
       render: (_, record) => (
         <span>
-          <CustomDescriptions 
+          <CustomDescriptions
             title={record.personal}
             detail={record}
             key={record.key}
           />
         </span>
       ),
+      sorter: (a, b) => a.personal.length - b.personal.length,
+      sortOrder: sortedInfo.columnKey === 'personal' ? sortedInfo.order : null,
     },
     {
       title: 'Name',
       dataIndex: 'name',
-      key: 'key',
+      key: 'name',
     },
     {
       title: 'Company',
       dataIndex: 'company',
-      key: 'key',
+      key: 'company',
     },
     {
       title: 'E-mail',
       dataIndex: 'email',
-      key: 'key',
+      key: 'email',
     },
     {
       title: 'Enter Date',
       dataIndex: 'enterDate',
-      key: 'key',
+      key: 'enterDate',
     },
     {
       title: 'Enable',
       dataIndex: 'enable',
-      key: 'key',
+      key: 'enable',
       render: (enable) => (
         <span>
           {[enable].map((enable) => {
@@ -151,6 +158,13 @@ export default function Page() {
       }
     }
 
+    // Filter by tags
+    if(tagList !== null) {
+      filteredData = dataList.filter(({ enable }) => {
+        return tagList.join().includes(enable);
+      });
+    }
+
     // Filter by search input
     if (filterInput !== '') {
       filteredData = filteredData.filter(({ personal, name, company, email }) => {
@@ -166,14 +180,67 @@ export default function Page() {
     setDateRange(dates);
   };
 
+  const tagOptions = [
+    {
+      value: 'True',
+      color: 'green',
+    },
+    {
+      value: 'False',
+      color: 'red',
+    },
+  ];
+
+  const tagRender = (props) => {
+    const { label, value, closable, onClose } = props;
+    const onPreventMouseDown = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+    return (
+      <Tag
+        color={value === 'True' ? 'green' : 'red'}
+        onMouseDown={onPreventMouseDown}
+        closable={closable}
+        onClose={onClose}
+        style={{
+          marginRight: 3,
+        }}
+      >
+        {label}
+      </Tag>
+    );
+  };
+
+  const handleTagChange = (tags) => {
+    setTagList(tags);
+  }
+
+  const handleTableChange = (pagination, filters, sorter) => {
+    setSortedInfo(sorter);
+  };
+
   return (
     <>
-      <Space direction='vertical'>
-        <RangePicker
-          format="YYYY/MM/DD"
-          onChange={handleDateChange}
-          allowClear
-        />
+      <Space.Compact block direction='vertical'>
+        <Space>
+          <RangePicker
+            format="YYYY/MM/DD"
+            onChange={handleDateChange}
+            allowClear
+          />
+          <Select
+            mode="multiple"
+            showArrow
+            tagRender={tagRender}
+            defaultValue={defaultTagList}
+            style={{
+              width: '100%',
+            }}
+            options={tagOptions}
+            onChange={handleTagChange}
+          />
+        </Space>
         <Search
           style={{ width: 500 }}
           size="middle"
@@ -182,8 +249,12 @@ export default function Page() {
           enterButton="Search"
           onSearch={setFilterInput}
         />
-      </Space>
-      <CustomTable dataList={filterData()} columns={columns} />
+      </Space.Compact>
+      <CustomTable 
+        dataList={filterData()}
+        columns={columns} 
+        onChange={handleTableChange}
+      />
       <CustomModal
         visible={visible}
         edit={edit}

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { ConfigProvider, theme, Space, Spin } from "antd";
 import dynamic from "next/dynamic";
-import { ConfigProvider, theme, Layout } from "antd";
-const { defaultAlgorithm, darkAlgorithm } = theme;
 import { LoadingOutlined } from "@ant-design/icons";
-import { Space, Spin } from "antd";
-const { Content } = Layout;
+
+import "antd/dist/reset.css";
+import "../styles/globals.css";
+
+const { defaultAlgorithm, darkAlgorithm } = theme;
 
 // Remote Layout dynamic 로딩
 const LayoutContainer = dynamic(() => import("remote/Layout"), {
@@ -17,9 +19,9 @@ const LayoutContainer = dynamic(() => import("remote/Layout"), {
   ),
 });
 
-function RemoteAppLayout({ children }) {
+export default function App({ Component, pageProps }) {
   // 테마 상태 관리
-  const [darkTheme, setDarkTheme] = useState(false, () => { });
+  const [darkTheme, setDarkTheme] = useState(false, () => {});
 
   // 테마 상태 변경 callback (로컬 스토리지)
   function setDarkThemeCallback() {
@@ -48,19 +50,9 @@ function RemoteAppLayout({ children }) {
           darkTheme={darkTheme}
           setDarkTheme={setDarkThemeCallback}
         >
-          <Content
-            className="site-layout-background"
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-            }}
-          >
-            {children}
-          </Content>
+          <Component {...pageProps} />
         </LayoutContainer>
       </ConfigProvider>
     </>
   );
 }
-
-export default RemoteAppLayout;
