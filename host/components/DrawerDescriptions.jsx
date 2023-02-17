@@ -1,4 +1,4 @@
-import { Badge, Descriptions, Drawer, Space } from 'antd';
+import { Descriptions, Drawer, Space } from 'antd';
 import { useState } from 'react';
 
 const CustomDescriptions = ({
@@ -37,7 +37,7 @@ const CustomDescriptions = ({
             Object.entries(detail).map(([key, value], idx) => {
               return (
                 <Descriptions.Item 
-                  key={`${key}=${idx}`}
+                  key={`${key}-${idx}`}
                   label={key.toUpperCase()}
                   span={3}
                 >
