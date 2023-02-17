@@ -29,7 +29,3 @@
 - 서버 푸시 : X
 - 네이밍 표준 : X
 - 보안 (XSS, CSRF, CORS, CSP..) : X
-
-## 진행중인 작업
-
-- 상태관리 : Context API
