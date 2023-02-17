@@ -18,7 +18,6 @@ const nextConfig = {
           filename: "static/chunks/remoteEntry.js",
           exposes: {
             "./Layout": "./components/container/LayoutContainer",
-            "./LayoutContext": "./store/shared-context",
           },
           remotes: {},
         })

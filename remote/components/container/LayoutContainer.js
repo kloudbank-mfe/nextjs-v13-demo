@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import MainLayout from "../presentation/template/MainLayout.js";
-import LayoutContext from "../../store/shared-context";
 import { getMenus } from "../../store/menus.js";
 import { useRouter } from "next/router";
 
@@ -11,13 +9,13 @@ export default function LayoutContainer({ darkTheme, setDarkTheme, children }) {
   const menus = getMenus();
 
   const router = useRouter();
-  const { layoutStore, setLayoutStore } = useContext(LayoutContext);
-
+  if (typeof window != "undefined") {
+    menus.forEach((item) => {
+      router.prefetch(item.key);
+    });
+  }
   const routePage = (e) => {
-    // 라우팅 사용
     router.push(e.key);
-    // LayoutContext 사용
-    setLayoutStore({ ...layoutStore, path: e.key });
     console.log("메뉴 클릭 :" + e.key);
   };
   return (

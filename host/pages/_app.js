@@ -1,18 +1,12 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { ConfigProvider, theme, Space, Spin } from "antd";
 import dynamic from "next/dynamic";
-// import LayoutContext from "../store/shared-context";
 import { LoadingOutlined } from "@ant-design/icons";
 
 import "antd/dist/reset.css";
 import "../styles/globals.css";
 
 const { defaultAlgorithm, darkAlgorithm } = theme;
-
-// Remote Layout dynamic 로딩
-const LayoutContext = dynamic(() => import("remote/LayoutContext"), {
-  ssr: false,
-});
 
 // Remote Layout dynamic 로딩
 const LayoutContainer = dynamic(() => import("remote/Layout"), {
@@ -26,10 +20,6 @@ const LayoutContainer = dynamic(() => import("remote/Layout"), {
 });
 
 export default function App({ Component, pageProps }) {
-  // 컨텍스트 상태 관리
-  const [layoutStore, setLayoutStore] = useState();
-  const value = useMemo(() => ({ layoutStore, setLayoutStore }), [layoutStore]);
-
   // 테마 상태 관리
   const [darkTheme, setDarkTheme] = useState(false, () => {});
 
@@ -44,15 +34,12 @@ export default function App({ Component, pageProps }) {
     setDarkTheme(localStorage.getItem("darkTheme") === "true" ? true : false);
 
     // 세션 정보 조회 (세션 스토리지)
-    console.log(sessionStorage.getItem("session"));
-
-    // 전역 상태 정보 조회 (컨텍스트)
-    console.log(layoutStore);
+    console.log("세션 : " + sessionStorage.getItem("session"));
   }, []);
 
   return (
     <>
-      {/* <LayoutContext.Provider value={{}}> */}
+      {/* 테마 적용 */}
       <ConfigProvider
         theme={{
           algorithm: darkTheme ? darkAlgorithm : defaultAlgorithm,
@@ -66,7 +53,6 @@ export default function App({ Component, pageProps }) {
           <Component {...pageProps} />
         </LayoutContainer>
       </ConfigProvider>
-      {/* </LayoutContext.Provider> */}
     </>
   );
 }
