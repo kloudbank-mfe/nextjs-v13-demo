@@ -16,8 +16,8 @@ const CustomDrawer = ({
   };
   return (
     <>
-      <Space>
-        <a type="primary" onClick={showDrawer}>
+      <Space key={`space-${title}`}>
+        <a type="primary" onClick={showDrawer} key={`a-${title}`}>
           {title}
         </a>
       </Space>
@@ -27,35 +27,36 @@ const CustomDrawer = ({
         size={size}
         onClose={onClose}
         open={open}
+        key={`drawer-${title}`}
       >
-      {
-        Object.entries(detail).map(([key, value], idx) => {
-          if (key != '_id') {
-            if (typeof value != 'object') {
-              return (
-                <span key={`${value}-${idx}`}>
-                  <h2>{key}</h2>
-                  <p>{value}</p>
-                </span>
-              );
-            } else {
-              return (
-                <>
-                  <h2>{key}</h2>
-                  {Object.entries(value).map(([key1, value1], idx1) => {
-                    return (
-                      <span key={`${value1}=${idx1}`}>
-                        <h3>{key1}</h3>
-                        <p>{value1}</p>
-                      </span>
-                    )
-                  })}
-                </>
-              )
+        {
+          Object.entries(detail).map(([key, value], idx) => {
+            if (key != '_id') {
+              if (typeof value != 'object') {
+                return (
+                  <div key={`${key}-${value}-${idx}`}>
+                    <h2>{key}</h2>
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;{value}</p>
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={`${key}-${value}-${idx}`}>
+                    <h2>{key}</h2>
+                    {Object.entries(value).map(([key1, value1], idx1) => {
+                      return (
+                        <div key={`${key1}-${value1}-${idx1}`}>
+                          <h3>&nbsp;&nbsp;&nbsp;&nbsp;{key1}</h3>
+                          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{value1}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              }
             }
-          }
-        })
-      }
+          })
+        }
       </Drawer>
     </>
   );

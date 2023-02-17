@@ -37,7 +37,7 @@ const CustomDescriptions = ({
             Object.entries(detail).map(([key, value], idx) => {
               return (
                 <Descriptions.Item 
-                  key={`${key}=${idx}`}
+                  key={`${key}-${idx}`}
                   label={key.toUpperCase()}
                   span={3}
                 >
