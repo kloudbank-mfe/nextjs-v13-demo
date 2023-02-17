@@ -4,6 +4,10 @@ import { getAccount } from "../../store/account.js";
 
 const AccountContainer = ({ accountOpen, setAccountOpen }) => {
   const account = getAccount();
+  if (typeof window != "undefined") {
+    sessionStorage.setItem("session", JSON.stringify(account));
+  }
+
   return (
     <Modal
       className="demo-account-modal"

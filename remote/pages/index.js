@@ -18,6 +18,11 @@ export default function Home() {
     if (typeof window != "undefined") {
       setDarkTheme(localStorage.getItem("darkTheme") === "true" ? true : false);
     }
+
+    // 세션 정보 조회
+    if (typeof window != "undefined") {
+      console.log(JSON.parse(sessionStorage.getItem("session")));
+    }
   }, []);
 
   return (
