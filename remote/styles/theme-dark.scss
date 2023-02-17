@@ -1,0 +1,30 @@
+.dark {
+  & .ant-layout-header{
+    background-color: #252423 !important;
+  }
+  & .ant-layout-content {
+    background: #1b1a19;
+  }
+  & .ant-layout-sider {
+    background-color: #323130 !important;
+  }
+  & .ant-layout-sider:after {
+    box-shadow: inset -6px 0 10px -6px#262626;
+  }
+  & .ant-layout-sider-trigger {
+    background: #252423;
+  }
+  & .ant-menu-light{
+    background-color: #323130 !important;
+  }
+
+  & .ant-menu-sub{
+    background-color: #323130 !important;
+  }
+  & .ant-menu-item-selected{
+    background-color: #4e4e4e !important;
+  }
+
+  & .demo-header-title{ color: #fff !important;}
+  & .demo-header-gnb-item{ color: #0078d4 !important;}
+}
