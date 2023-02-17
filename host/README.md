@@ -1,38 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Host app. Introduction
 
-## Getting Started
+Host app. 주요 사용 module
+- next
+- nextjs-mf
+- antd
+- swr
 
-First, run the development server:
+# Next.js module federation
+- Layout container loading 을 위한 remote 정의
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```js
+const remotes = (isServer) => {
+  const location = isServer ? 'ssr' : 'chunks';
+  return {
+    remote: `remote@http://localhost:3001/_next/static/${location}/remoteEntry.js`,
+  };
+};
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Next.js layout 적용
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+`app` directory 사용 없이, `pages` 기반 page 및 layout 구성
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Layout (Host / Remote)
+- Host app. 내 자체 layout 적용
+  - Header / Sidebar 등을 app. 에 직접 구성하거나, app. 자체 기본 layout 구성 시 활용
+  - [](./pages/layout.js)
+- Remote LayoutContainer loading
+  - Remote app. 에서 제공하는 layout 활용 가능
+  - [](./pages/remoteLayout.js)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Page 에 Layout 적용
+- layout 에 page 를 prop 으로 넘겨주는 방식으로 각 page 에 적용
+- 각 page 에 `getLayout` code 작성 필요
+```js
+...
+Home.getLayout = function getLayout(page) {
+  return (
+    <>
+      <AppLayout>{page}</AppLayout>
+      <RemoteAppLayout>{page}</RemoteAppLayout>
+    </>
+  )
+}
+...
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+# Sample Pages
 
-## Learn More
+Ant Design component 활용하여 개발 
 
-To learn more about Next.js, take a look at the following resources:
+- botkube
+  - botkube 수집 data json file 로 생성.
+  - Paging 처리
+    - `http://localhost:3000/botkube/pagination`
+  - Virtual list
+    - `http://localhost:3000/botkube/pagination`
+- userinfo
+  - user info sample data json file 로 생성
+    - Paging 처리
+    - Date Picker range 검색
+    - keyword 검색
+    - Action 적용 (Edit / Delete)
+    - `http://localhost:3000/userinfo/pagination`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

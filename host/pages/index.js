@@ -1,8 +1,7 @@
-import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 import AppLayout from './layout';
+import RemoteAppLayout from './remoteLayout';
 
-const Test = dynamic(() => import('remote/Test'), { ssr: false });
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -25,13 +24,15 @@ export default function Home() {
         );
       })}
       <br/>
-      <Test />
     </>
   )
 }
-
+// 
 Home.getLayout = function getLayout(page) {
   return (
-    <AppLayout>{page}</AppLayout>
+    <>
+      <AppLayout>{page}</AppLayout>
+      <RemoteAppLayout>{page}</RemoteAppLayout>
+    </>
   )
 }
