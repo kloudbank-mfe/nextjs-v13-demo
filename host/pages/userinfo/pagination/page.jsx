@@ -20,7 +20,6 @@ const useUserInfo = () => {
 };
 
 const defaultTagList = ['True', 'False'];
-
 export default function Page() {
   const { data, error } = useUserInfo();
   const [dataList, setDataList] = useState([]);
@@ -29,7 +28,6 @@ export default function Page() {
   const [filterInput, setFilterInput] = useState('');
   const [dateRange, setDateRange] = useState([]);
   const [tagList, setTagList] = useState(defaultTagList);
-  const [sortedInfo, setSortedInfo] = useState({});
 
   useEffect(() => {
     if (data) {
@@ -54,8 +52,7 @@ export default function Page() {
           />
         </span>
       ),
-      sorter: (a, b) => a.personal.length - b.personal.length,
-      sortOrder: sortedInfo.columnKey === 'personal' ? sortedInfo.order : null,
+      sorter: (a, b) => a.personal.localeCompare(b.personal),
     },
     {
       title: 'Name',
@@ -160,7 +157,7 @@ export default function Page() {
 
     // Filter by tags
     if(tagList !== null) {
-      filteredData = dataList.filter(({ enable }) => {
+      filteredData = filteredData.filter(({ enable }) => {
         return tagList.join().includes(enable);
       });
     }
@@ -216,9 +213,6 @@ export default function Page() {
     setTagList(tags);
   }
 
-  const handleTableChange = (pagination, filters, sorter) => {
-    setSortedInfo(sorter);
-  };
 
   return (
     <>
@@ -253,7 +247,7 @@ export default function Page() {
       <CustomTable 
         dataList={filterData()}
         columns={columns} 
-        onChange={handleTableChange}
+        // onChange={handleTableChange}
       />
       <CustomModal
         visible={visible}
