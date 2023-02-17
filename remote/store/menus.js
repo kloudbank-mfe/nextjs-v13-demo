@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCamera, faCloud } from "@fortawesome/free-solid-svg-icons";
-// import { FileOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
+import { faCamera, faRobot, faHome } from "@fortawesome/free-solid-svg-icons";
+import { FileOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
 
 function getItem(label, key, icon, children) {
   return {
@@ -13,12 +13,15 @@ function getItem(label, key, icon, children) {
 
 // server side data fetch 생략
 const menus = [
-  getItem("Option 1", "/temp/page1", <FontAwesomeIcon icon={faCamera} />),
-  getItem("Option 2", "/temp/page2", <FontAwesomeIcon icon={faCloud} />),
-  // getItem("Team", "sub2", <TeamOutlined />, [
-  //   getItem("Team 1", "6"),
-  //   getItem("Team 2", "8"),
-  // ]),
+  getItem("Home", "/", <FontAwesomeIcon icon={faHome} />),
+  getItem("Temp", "/temp", <FontAwesomeIcon icon={faCamera} />),
+  getItem("Users", "/userinfo", <TeamOutlined />, [
+    getItem("Paging", "/userinfo/pagination", <UserOutlined />),
+  ]),
+  getItem("Botkube", "/botkube", <FontAwesomeIcon icon={faRobot} />, [
+    getItem("Paging", "/botkube/pagination", <FileOutlined />),
+    getItem("Virtual List", "/botkube/virtual-list", <FileOutlined />),
+  ]),
 ];
 
 export const getMenus = () => menus;

@@ -1,9 +1,8 @@
 import AppLayout from '#/pages/layout';
 import Page from './page';
+import RemoteAppLayout from '#/pages/remoteLayout';
 
-export default function Pagination({
-  children,
-}) {
+export default function Pagination() {
   return (
     <>
       <Page />
@@ -13,6 +12,7 @@ export default function Pagination({
 
 Pagination.getLayout = function getLayout(page) {
   return (
-    <AppLayout>{page}</AppLayout>
+    // <AppLayout>{page}</AppLayout>
+    <RemoteAppLayout>{page}</RemoteAppLayout>
   )
 }
