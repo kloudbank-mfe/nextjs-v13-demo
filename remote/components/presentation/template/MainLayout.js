@@ -13,9 +13,9 @@ export default function MainLayout({
   darkTheme,
   setDarkTheme,
   menus,
+  routePage,
   children,
 }) {
-  // const [darkTheme, setDarkTheme] = useState(initDarkTheme, () => {});
   const [notificationOpen, setNotificationOpen] = useState(false, () => {});
   const [accountOpen, setAccountOpen] = useState(false, () => {});
 
@@ -30,12 +30,7 @@ export default function MainLayout({
   };
 
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: darkTheme ? darkAlgorithm : defaultAlgorithm,
-        token: { borderRadius: 2 },
-      }}
-    >
+    <>
       <Layout className={`demo-layout ${darkTheme ? "dark" : "default"}`}>
         <Header
           darkTheme={darkTheme}
@@ -44,7 +39,7 @@ export default function MainLayout({
           showAccount={showAccount}
         ></Header>
         <Layout>
-          <Sidebar items={menus}></Sidebar>
+          <Sidebar items={menus} routePage={routePage}></Sidebar>
           <Content>
             {children}
             <NotificationContainer
@@ -58,6 +53,6 @@ export default function MainLayout({
         accountOpen={accountOpen}
         setAccountOpen={setAccountOpen}
       />
-    </ConfigProvider>
+    </>
   );
 }
