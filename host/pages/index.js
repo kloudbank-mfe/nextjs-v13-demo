@@ -1,5 +1,3 @@
-import { Space, Spin, LoadingOutlined } from 'antd';
-import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 import AppLayout from './layout';
 import RemoteAppLayout from './remoteLayout';
@@ -29,10 +27,12 @@ export default function Home() {
     </>
   )
 }
-
+// 
 Home.getLayout = function getLayout(page) {
   return (
-    // <AppLayout>{page}</AppLayout>
-    <RemoteAppLayout>{page}</RemoteAppLayout>
+    <>
+      <AppLayout>{page}</AppLayout>
+      <RemoteAppLayout>{page}</RemoteAppLayout>
+    </>
   )
 }
