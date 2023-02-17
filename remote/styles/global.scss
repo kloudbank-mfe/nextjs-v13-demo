@@ -28,6 +28,11 @@ h1 {
   padding-top: 10px;
 }  
 
+.ant-layout-sider .ant-menu-item{
+  display: flex !important;
+  align-items: center !important;
+}
+
 .ant-layout-sider:after {
   content: "\00a0";
   position: absolute;
@@ -71,6 +76,7 @@ h1 {
   font-size: 20px !important;
   color: #0078d4 !important;
   width: 20px !important;
+  min-width: 20px !important;
 }
 .ant-menu-root.ant-menu-inline{
   border:none !important
