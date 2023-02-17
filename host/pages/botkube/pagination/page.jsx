@@ -14,6 +14,7 @@ const columns = [
         <CustomDrawer
           title={record._id}
           detail={record}
+          key={record._id}
         >
         </CustomDrawer>
       </span>
@@ -57,14 +58,14 @@ const columns = [
     dataIndex: 'status',
     render: (status) => (
       <span>
-        {[status].map((status) => {
+        {[status].map((status, idx) => {
           let level = status.level;
           let color = level === 'warn' ? 'yellow' : 'green';
           if (level === 'critical') {
             color = 'volcano';
           }
           return (
-            <Tag color={color} key={level}>
+            <Tag color={color} key={`${level}-${idx}`}>
               {level.toUpperCase()}
             </Tag>
           );

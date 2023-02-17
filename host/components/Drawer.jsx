@@ -29,11 +29,11 @@ const CustomDrawer = ({
         open={open}
       >
       {
-        Object.entries(detail).map(([key, value],idx) => {
+        Object.entries(detail).map(([key, value], idx) => {
           if (key != '_id') {
             if (typeof value != 'object') {
               return (
-                <span key={`${key}-${idx}`}>
+                <span key={`${value}-${idx}`}>
                   <h2>{key}</h2>
                   <p>{value}</p>
                 </span>
@@ -42,11 +42,11 @@ const CustomDrawer = ({
               return (
                 <>
                   <h2>{key}</h2>
-                  {Object.entries(value).map(([key, value]) => {
+                  {Object.entries(value).map(([key1, value1], idx1) => {
                     return (
-                      <span key={`${key}-${idx}`}>
-                        <h3>{key}</h3>
-                        <p>{value}</p>
+                      <span key={`${value1}=${idx1}`}>
+                        <h3>{key1}</h3>
+                        <p>{value1}</p>
                       </span>
                     )
                   })}
