@@ -5,8 +5,8 @@
 - 코드분할 : 자동 최적화 (Next.js)
 - 라우팅 : 파일시스템 (Next.js)
 - 페이지 이동 : SPA (Next.js Link)
-- 상태관리 : (진행중!!!!!!!!!!!!!!!!)
-- 인증/세션 관리 : 세션스토리지 (진행중!!!!!!!!!!!!!!!!)
+- 상태관리 : X
+- 인증/세션 관리 : 세션스토리지
 - MFE :
   - Header/Sidebar가 포함된 Layout 컴포넌트 1개를 외부에 노출함
   - 테마 상태 관리는 사용자 측에서 관리함 (<Layout darkTheme={} setDarkTheme={}>children</Layout>)
@@ -20,7 +20,7 @@
 - 설정 > 웹팩 : next.config.js에서 module-federation, mini-css-extract 추가
 - CSS Framework : Ant Design 5, (Ant Designe css를 일부 커스터마이징 함 (scss 파일에서 class overwrite))
 - UX 테마 : 테마별로 css 분리함 (dark.scss, default.scss), Ant Design 테마 관리
-- 테스트 : storybook (보완중 !!!!!!!!!!!!!!!!)
+- 테스트 : storybook
 - 환경 설정 : DotEnv
 - 코드 포맷/품질 (ESLint/prettier) : 기본 설정
 - Validation : X
@@ -33,4 +33,3 @@
 ## 진행중인 작업
 
 - 상태관리 : Context API
-- 스토리보드 : Atom 별로 분리
