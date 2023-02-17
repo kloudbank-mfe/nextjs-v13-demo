@@ -1,27 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Layout } from "antd";
 import Sidebar from "../atom/Sidebar";
 import Header from "../atom/Header";
 import AccountContainer from "../../container/AccountContainer";
 import NotificationContainer from "../../container/NotificationContainer";
 
-import { ConfigProvider, theme, Layout } from "antd";
-
 const { Content } = Layout;
-const { defaultAlgorithm, darkAlgorithm } = theme;
 
 export default function MainLayout({
   darkTheme,
   setDarkTheme,
   menus,
+  routePage,
   children,
 }) {
-  // const [darkTheme, setDarkTheme] = useState(initDarkTheme, () => {});
   const [notificationOpen, setNotificationOpen] = useState(false, () => {});
   const [accountOpen, setAccountOpen] = useState(false, () => {});
 
-  const changeTheme = () => {
-    setDarkTheme();
-  };
   const showNotification = () => {
     setNotificationOpen((value) => !value);
   };
@@ -30,21 +25,16 @@ export default function MainLayout({
   };
 
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: darkTheme ? darkAlgorithm : defaultAlgorithm,
-        token: { borderRadius: 2 },
-      }}
-    >
+    <>
       <Layout className={`demo-layout ${darkTheme ? "dark" : "default"}`}>
         <Header
           darkTheme={darkTheme}
-          changeTheme={changeTheme}
+          changeTheme={setDarkTheme}
           showNotification={showNotification}
           showAccount={showAccount}
         ></Header>
         <Layout>
-          <Sidebar items={menus}></Sidebar>
+          <Sidebar items={menus} routePage={routePage}></Sidebar>
           <Content>
             {children}
             <NotificationContainer
@@ -58,6 +48,6 @@ export default function MainLayout({
         accountOpen={accountOpen}
         setAccountOpen={setAccountOpen}
       />
-    </ConfigProvider>
+    </>
   );
 }

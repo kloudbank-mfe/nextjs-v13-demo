@@ -4,8 +4,8 @@ const { Title, Paragraph } = Typography;
 export default function Home() {
   return (
     <Typography>
-      <Title>소개 1</Title>
-      <Paragraph style={{}}>{process.env.NEXT_PUBLIC_CONTENTS}</Paragraph>
+      <Title>페이지 1</Title>
+      <Paragraph>{process.env.NEXT_PUBLIC_CONTENTS}</Paragraph>
     </Typography>
   );
 }
