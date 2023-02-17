@@ -33,5 +33,4 @@
 ## 진행중인 작업
 
 - 상태관리 : Context API
-- 인증/세션 : SessionStorage
 - 스토리보드 : Atom 별로 분리
