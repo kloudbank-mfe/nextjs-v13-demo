@@ -14,12 +14,12 @@ function getItem(label, key, icon, children) {
 // server side data fetch 생략
 const menus = [
   getItem("Home", "/", <FontAwesomeIcon icon={faHome} />),
-  getItem("Users", "/userinfo", <TeamOutlined />, [
-    getItem("Paging", "/userinfo/pagination", <UserOutlined />),
-  ]),
+  getItem("Users", "/userinfo", <TeamOutlined />),// [
+    // getItem("Paging", "/userinfo", <UserOutlined />),
+  // ]),
   getItem("Botkube", "/botkube", <FontAwesomeIcon icon={faRobot} />, [
-    getItem("Paging", "/botkube/pagination", <FileOutlined />),
-    getItem("Virtual List", "/botkube/virtual-list", <FileOutlined />),
+    getItem("Botkube List", "/botkube/pagination", <FileOutlined />),
+    getItem("Agent List", "/botkube/virtual-list", <FileOutlined />),
   ]),
   getItem("Temp", "/temp", <FontAwesomeIcon icon={faTrash} />, [
     getItem("page1", "/temp/page1", <FileOutlined />),
